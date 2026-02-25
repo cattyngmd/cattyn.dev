@@ -1,13 +1,11 @@
 const SOCIALS = {
     youtube:    'https://www.youtube.com/@cattyngmd',
     github:     'https://github.com/cattyngmd',
-    telegram:   'https://cattyn.t.me/'
+    telegram:   'https://cattyn.t.me'
 }
 
 const WAVE_PATTERN = "⋆⭒˚.";
 const WAVE_LEN = 33;
-
-const BIRTHDAY = 1159905600000;
 
 let offset = 0;
 
@@ -39,12 +37,6 @@ const onSocialClick = (e) => {
     let clicked = e.target.innerText;
     let url = SOCIALS[clicked];
     window.location.href = url;
-}
-
-const yearPassed = (day) => {
-    let ageDifMs = Date.now() - day;
-    let ageDate = new Date(ageDifMs);
-    return ageDate.getUTCFullYear() - 1970; 
 }
 
 const $ = (id) => {

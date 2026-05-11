@@ -1,64 +1,153 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-body {
-    background-color: #111;
-    color: #555;
-    font-family: 'Montserrat';
-    letter-spacing: 2px;
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-h2 {
-    font-weight: 500;
+:root {
+    --bg: #111;
+    --fg: #555;
+    --accent: #d89dfc;
+    --accent-dim: #9b6bbf;
+    --title-hover: #bbb;
+    --glow: rgba(216, 157, 252, 0.25);
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-top: 8rem;
-    opacity: 0.0;
-    transition: opacity 750ms ease-out;
+    gap: 2rem;
+    animation: fade-in 1.2s ease both;
 }
 
-.box > * {
-    cursor: pointer;
-}
-
-.socials {
-    display: flex;
-}
-
-.social-card {
-    transition: all 500ms;
-    margin: 0px 8px;
-}
-
-.social-card:hover {
-    color: #d89dfc;
-    letter-spacing: 4px;
-}
-
-.bio {
-    cursor: default;
-    opacity: 0.5;
-    margin: 32px;
+@keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 .title {
     display: flex;
     align-items: center;
-    text-align: center;
+    gap: 18px;
 }
 
-.title * {
-    transition: all 500ms;
+.title h2 {
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--fg);
+    transition: color 500ms;
+    white-space: nowrap;
 }
 
-.title:hover * {
-    color: #bbb;
+.title:hover h2 {
+    color: var(--title-hover);
 }
 
 .wave {
-    min-width: 172px;
+    width: 172px;
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--fg);
+    font-size: 1rem;
+    transition: color 500ms;
+}
+
+#prefix {
+    mask-image: linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+}
+
+#suffix {
+    mask-image: linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+}
+
+.title:hover .wave {
+    color: var(--title-hover);
+}
+
+.wave-inner {
+    display: inline-block;
+}
+
+#prefix .wave-inner {
+    animation: scroll-left 3s linear infinite;
+}
+
+#suffix .wave-inner {
+    animation: scroll-right 3s linear infinite;
+}
+
+@keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+}
+
+.socials {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.social-card {
+    color: var(--fg);
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    transition: color 500ms, letter-spacing 500ms, text-shadow 500ms;
+    position: relative;
+}
+
+.social-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: translateX(-50%);
+    transition: width 400ms ease;
+}
+
+.social-card:hover {
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-shadow: 0 0 12px var(--glow);
+}
+
+.social-card:hover::after {
+    width: 80%;
+}
+
+.bio {
+    opacity: 0.6;
+    letter-spacing: 3px;
+    text-align: center;
+    max-width: 340px;
+    cursor: default;
+}
+
+.box > * {
+    animation: fade-in 1s ease both;
 }
